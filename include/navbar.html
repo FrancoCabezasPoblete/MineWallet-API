@@ -1,0 +1,57 @@
+<?php include 'header.html'; ?>
+<?php include $_SERVER['DOCUMENT_ROOT']. '/sesion/valida_sesion.php'; ?>
+<body>
+    <nav class="navbar navbar-expand-sm navbar-dark" style="background-color: none;">
+        <!-- Ponga el número de su equipo -->
+        <img src="/img/spaceship.svg" width="20rem" class="mr-2">
+        <a class="navbar-brand" href="/index.html">Equipo 27</a>
+
+        <ul class="navbar-nav">
+            <!-- Visible solo si hay una sesión iniciada -->
+            <?php 
+            if(isset($_SESSION["admin"]) || isset($_SESSION["usuario"])){
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="/user/profile.html">Perfil</a>
+                </li>';
+            }
+            ?>
+            <!-- Solo los usuarios tienen billetera -->
+            <?php 
+            if(isset($_SESSION["usuario"])){
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="/user/wallet.html">Wallet</a>
+                </li>';
+                }
+            ?>
+            <!-- Solo el admin puede revisar los usuarios -->
+            <?php 
+            if(isset($_SESSION["admin"])){
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="/admin/users/all.html">Usuarios</a>
+                    </li>';
+                }
+            ?>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <!-- Visible solo si hay una sesión iniciada -->
+            <?php 
+            if(isset($_SESSION["admin"]) || isset($_SESSION["usuario"])){
+                echo '<li class="nav-item">
+                        <a class="nav-link" href="/sesion/logout.php">Sign out</a>
+                    </li>';
+                }
+            ?>
+            <!-- Visible solo si NO hay una sesión iniciada -->
+            <?php 
+            if(!(isset($_SESSION["admin"]) || isset($_SESSION["usuario"]))){
+            echo '<li class="nav-item">
+                    <a class="nav-link" href="/sesion/log-in.html">Log in</a>
+                </li>
+                <!-- Visible solo si NO hay una sesión iniciada -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/sesion/sign-up.html">Sign up</a>
+                </li>';
+            }
+            ?>
+        </ul>
+    </nav>

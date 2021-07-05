@@ -1,0 +1,120 @@
+/* Si quieren utilizar CSS personalizado para la tarea, utilicen este archivo */
+
+/* GLOBAL STYLES
+-------------------------------------------------- */
+/* Padding below the footer */
+body{
+  background-color: #14152B;
+}
+  
+#loginBox {
+  position: relative;
+ z-index: 1;
+  top: 4rem;
+  right: 1rem;
+}
+
+/*.card:hover > *:not(.card-img-overlay) {
+transition: all 1s ease;
+background-color: #5a5a5a;
+opacity : 0.3;
+-webkit-filter: blur(3px); /* Chrome, Safari, Opera
+filter: blur(3px);
+}*/
+
+/* DEVELOPERS SECTION
+-------------------------------------------------- */
+
+/* Center align the text within the three columns below the log-in/info section */
+.developer .col-lg-4 {
+margin-bottom: 1.5rem;
+text-align: center;
+}
+.developer h2 {
+font-weight: 400;
+}
+
+.developer .col-lg-4 p {
+margin-right: .75rem;
+margin-left: .75rem;
+}
+
+.txt-bg-1{
+  background-color: #9478EF;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width:100%;
+  color: #F6F9FC;
+  text-align: center;
+}
+
+.txt-bg-2{
+  background-color: #FD7CA6;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width:100%;
+  color: #F6F9FC;
+  text-align: center;
+}
+
+.txt-bg-3{
+  background-color: #FFB635;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  width:100%;
+  color: #F6F9FC;
+  text-align: center;
+}
+
+.btn-1 {
+    background-color: #9478EF ;
+    color: #F6F9FC;
+}
+
+.btn-1:hover {
+  background-color: #5B56D6 ;
+  color: #F6F9FC;
+}
+
+.btn-2 {
+  background-color: #FD7CA6 ;
+  color: #F6F9FC;
+}
+
+.btn-2:hover {
+  background-color: #FC6995 ;
+  color: #F6F9FC;
+}
+
+.btn-3 {
+  background-color: #FFB635 ;
+  color: #F6F9FC;
+}
+
+.btn-3:hover {
+  background-color: #F8974E ;
+  color: #F6F9FC;
+}
+
+.btn-4 {
+  background-color: #D8DEE8 ;
+}
+
+.btn-4:hover {
+  background-color: #AABBCC ;
+}
+
+@media (max-width: 991.98px) {
+  .box {
+    background-size: 100% 80% !important;
+    padding-bottom: 7rem !important;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .box-2 {
+    background-size: 100% 85% !important;
+    background-position: top !important;
+    margin-top: 3rem !important;
+  }
+}

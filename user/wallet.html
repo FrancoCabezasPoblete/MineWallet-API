@@ -1,0 +1,28 @@
+<?php include '../include/navbar.html'; ?>
+    <div class='container-fluid'>
+        <div class="row p-5">
+            <div class="col">
+                <div class="container rounded m-auto p-5" style="background-image: url(/img/rectangle.svg); background-repeat: no-repeat; background-size: 100% 100%; background-position: center;">
+                    <h1 style="color: #AABBCC">Mi Billetera</h1>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Código</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Valor Actual</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Debería haber una de estas por cada moneda que tenga el usuario -->
+                            <?php include 'wallet.php'; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
