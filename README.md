@@ -1,4 +1,4 @@
-# MineWallet
+# MineWallet-API
 
 Aplicación web para *INF239: Base de datos*
 

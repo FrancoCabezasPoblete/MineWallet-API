@@ -1,13 +1,13 @@
 class Config:
-	pass
+    pass
 
 # Definimos una clase de configuración, heredamos de la clase Config
 class DevelopmentConfig(Config):
-	DEBUG = True
-	# Ingresamos credenciales para conexión a base de datos
-	SQLALCHEMY_DATABASE_URI = 'postgresql://root:6655@localhost/Tarea1_Grupo27'
-	SQLALCHEMY_TRACK_MODIFICATIONS = False
+    DEBUG = True
+    # Ingresamos credenciales para conexión a base de datos
+    SQLALCHEMY_DATABASE_URI = 'postgresql://root:6655@localhost/Tarea1_Grupo27'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 config = {
-	'development': DevelopmentConfig,
+    'development': DevelopmentConfig,
 }
