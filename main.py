@@ -23,7 +23,7 @@ enviroment = config['development']
 app = create_app(enviroment)
 
 #---------------------------#
-#	    USUARIO	    #
+#	    USUARIO	            #
 #---------------------------#
 
 # Se obtienen todos los usuarios
@@ -33,14 +33,13 @@ def get_usuarios():
     return jsonify({'usuarios': usuarios })
 
 # Se crea los usuario
-@app.route('/api/usuario/<id>', methods=['POST'])
+@app.route('/api/usuario/', methods=['POST'])
 def create_usuario():
     json = request.get_json(force=True)
-
-    if (json.get('nombre') is None) or (json.get('correo') is None) or (json.get('contraseña') is None) or (json.get('pais') is None) or (json.get('fecha') is None) or (json.get('admin') is None):
+    if (json.get('nombre') is None) or (json.get('correo') is None) or (json.get('contraseña') is None) or (json.get('pais') is None):
             return jsonify({'message': 'El formato está mal'}), 400
 
-    usuario = Usuario.create(json['nombre','correo','contraseña','pais','admin','apellido'])
+    usuario = Usuario.create(json['nombre'],json['correo'],json['contraseña'],json['pais'],json['apellido'])
 
     return jsonify({'usuario': usuario.json() })
 
@@ -51,14 +50,13 @@ def update_usuario(id):
     if usuario is None:
         return jsonify({'message': 'El usuario no existe'}), 404
     json = request.get_json(force=True)
-    if (json.get('nombre') is None) or (json.get('correo') is None) or (json.get('contraseña') is None) or (json.get('pais') is None) or (json.get('fecha') is None) or (json.get('admin') is None):
+    if (json.get('nombre') is None) or (json.get('correo') is None) or (json.get('contraseña') is None) or (json.get('pais') is None):
             return jsonify({'message': 'Solicitud Incorrecta'}), 400
     usuario.nombre = json['nombre']
     usuario.apellido = json['apellido']
     usuario.correo = json['correo']
     usuario.contraseña = json['contraseña']
     usuario.pais = json['pais']
-    usuario.admin = json['admin']
     usuario.update()
     return jsonify({'usuario': usuario.json() })
 
@@ -84,14 +82,14 @@ def get_usuario_tiene_monedas():
     return jsonify({'usuarios_tiene_monedas': usuarios_tiene_monedas })
 
 # Se crea el usuario_tiene_moneda
-@app.route('/api/usuario_tiene_moneda/<id_usuario>', methods=['POST'])
+@app.route('/api/usuario_tiene_moneda/', methods=['POST'])
 def create_usuario_tiene_moneda():
     json = request.get_json(force=True)
 
     if (json.get('balance') is None) or (json.get('id_usuario') is None) or (json.get('id_moneda') is None):
         return jsonify({'message': 'El formato está mal'}), 400
 
-    usuario_tiene_moneda = Usuario_tiene_moneda.create(json['id_usuario','id_moneda','balance'])
+    usuario_tiene_moneda = Usuario_tiene_moneda.create(json['id_usuario'],json['id_moneda'],json['balance'])
 
     return jsonify({'usuario_tiene_moneda': usuario_tiene_moneda.json() })
 
@@ -132,14 +130,14 @@ def get_precio_monedas():
     return jsonify({'precio_monedas': precio_monedas })
 
 # Se crea un precio_moneda
-@app.route('/api/precio_moneda/<id_moneda>', methods=['POST'])
+@app.route('/api/precio_moneda/', methods=['POST'])
 def create_precio_moneda():
     json = request.get_json(force=True)
 
     if (json.get('id_moneda') is None) or (json.get('valor') is None):
         return jsonify({'message': 'El formato está mal'}), 400
 
-    precio_moneda = Precio_moneda.create(json['id_moneda','valor'])
+    precio_moneda = Precio_moneda.create(json['id_moneda'],json['valor'])
 
     return jsonify({'precio_moneda': precio_moneda.json() })
 
@@ -150,9 +148,8 @@ def update_precio_moneda(id_moneda):
     if precio_moneda is None:
         return jsonify({'message': 'El usuario no existe'}), 404
     json = request.get_json(force=True)
-    if (json.get('id_moneda') is None) or (json.get('valor') is None):
+    if (json.get('valor') is None):
         return jsonify({'message': 'Solicitud Incorrecta'}), 400
-    precio_moneda.id_moneda = json['id_moneda']
     precio_moneda.valor = json['valor']
     precio_moneda.update()
     return jsonify({'precio_moneda': precio_moneda.json() })
@@ -179,8 +176,8 @@ def get_paises():
     return jsonify({'paises': paises })
 
 # Se crean un pais
-@app.route('/api/pais/<cod_pais>', methods=['POST'])
-def create_pais(cod_pais):
+@app.route('/api/pais/', methods=['POST'])
+def create_pais():
     json = request.get_json(force=True)
 
     if (json.get('nombre') is None):
@@ -225,14 +222,14 @@ def get_monedas():
     return jsonify({'monedas': monedas })
 
 # Se crea nueva moneda
-@app.route('/api/moneda/<id>', methods=['POST'])
-def create_moneda(id):
+@app.route('/api/moneda/', methods=['POST'])
+def create_moneda():
     json = request.get_json(force=True)
 
     if (json.get('sigla') is None) or (json.get('nombre') is None):
         return jsonify({'message': 'El formato está mal'}), 400
 
-    moneda = Moneda.create(json['sigla','nombre'])
+    moneda = Moneda.create(json['sigla'],json['nombre'])
 
     return jsonify({'moneda': moneda.json() })
 
@@ -272,21 +269,21 @@ def get_cuentas_bancarias():
     return jsonify({'cuentas_bancarias': cuentas_bancarias })
 
 # Se crea nueva cuenta_bancaria
-@app.route('/api/cuenta_bancaria/<numero_de_cuenta>', methods=['POST'])
+@app.route('/api/cuenta_bancaria/', methods=['POST'])
 def create_cuenta_bancaria():
     json = request.get_json(force=True)
 
     if (json.get('id_usuario') is None) or (json.get('balance') is None):
         return jsonify({'message': 'El formato está mal'}), 400
 
-    cuenta_bancaria = Cuenta_bancaria(json['id_usuario','balance'])
+    cuenta_bancaria = Cuenta_bancaria.create(json['id_usuario'],json['balance'])
 
     return jsonify({'cuenta_bancaria': cuenta_bancaria.json()})
 
 # Se actualiza una cuenta_bancaria
-@app.route('/api/cuenta_bancaria/<numero_de_cuenta>', methods=['PUT'])
-def update_cuenta_bancaria(numero_de_cuenta):
-    cuenta_bancaria = Cuenta_bancaria.query.filter_by(numero_de_cuenta=numero_de_cuenta).first()
+@app.route('/api/cuenta_bancaria/<numero_cuenta>', methods=['PUT'])
+def update_cuenta_bancaria(numero_cuenta):
+    cuenta_bancaria = Cuenta_bancaria.query.filter_by(numero_cuenta=numero_cuenta).first()
     if cuenta_bancaria is None:
         return jsonify({'message': 'El usuario no existe'}), 404
     json = request.get_json(force=True)
@@ -299,8 +296,8 @@ def update_cuenta_bancaria(numero_de_cuenta):
 
 # Se elimina una cuenta_bancaria
 @app.route('/api/cuenta_bancaria/<numero_de_cuenta>', methods=['DELETE'])
-def delete_cuenta_bancaria(numero_de_cuenta):
-    cuenta_bancaria = Cuenta_bancaria.query.filter_by(numero_de_cuenta=numero_de_cuenta).first()
+def delete_cuenta_bancaria(numero_cuenta):
+    cuenta_bancaria = Cuenta_bancaria.query.filter_by(numero_cuenta=numero_cuenta).first()
     if cuenta_bancaria is None:
         return jsonify({'message': 'El usuario no existe'}), 404
 

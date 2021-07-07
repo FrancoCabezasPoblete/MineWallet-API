@@ -8,22 +8,21 @@ db = SQLAlchemy()
 class Usuario(db.Model):
     __tablename__ = 'usuario'
 	
-    id = db.Column(db.Integer(), primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(50), nullable=False)
     apellido = db.Column(db.String(50), nullable=True) 
     correo = db.Column(db.String(50), nullable=False) 
     contraseña = db.Column(db.String(225), nullable=False) 
     pais = db.Column(db.Integer, db.ForeignKey('pais.cod_pais'))
     paisPK = db.relationship("Pais")
-    fecha = db.Column(db.DateTime(), nullable=False, default=db.func.current_timestamp())
-    admin = db.Column(db.Boolean(), nullable=False) 
+    fecha = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())
     usuario_tiene_moneda = db.relationship('Usuario_tiene_moneda', cascade = "all,delete", backref = "parent", lazy = 'dynamic')
     cuenta_bancaria = db.relationship('Cuenta_bancaria',  cascade = "all,delete", backref = "parent", lazy = 'dynamic')
     
     @classmethod
-    def create(cls,nombre,correo,contraseña,fecha,admin,apellido = ""):
+    def create(cls,nombre,correo,contraseña,pais,apellido):
         # Instanciamos un nuevo registro y lo guardamos en la bd
-        usuario = Usuario(nombre = nombre, apellido = apellido, correo = correo, contraseña = contraseña, fecha = fecha, admin = admin)
+        usuario = Usuario(nombre = nombre, correo = correo, contraseña = contraseña, pais=pais, apellido = apellido)
         return usuario.save()
 
     def save(self):
@@ -41,9 +40,9 @@ class Usuario(db.Model):
             'nombre': self.nombre,
             'apellido': self.apellido,
             'correo': self.correo,
-            'contraseña': self.contraseña,
             'fecha': self.fecha,
-            'admin': self.admin
+            'contraseña': self.contraseña,
+            'pais': self.pais
         }
 
     def update(self):
@@ -64,7 +63,7 @@ class Usuario_tiene_moneda(db.Model):
     usuario = db.relationship("Usuario")
     id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'), primary_key = True)
     moneda = db.relationship("Moneda")
-    balance = db.Column(db.Integer(), nullable=False)
+    balance = db.Column(db.Float, nullable=False)
     
     @classmethod
     def create(cls, id_usuario, id_moneda, balance):
@@ -101,14 +100,14 @@ class Usuario_tiene_moneda(db.Model):
 
 class Precio_moneda(db.Model):
     __tablename__ = 'precio_moneda'
-    id_moneda = db.Column(db.Integer(), db.ForeignKey('moneda.id'), primary_key = True) 
+    id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'), primary_key = True) 
     moneda = db.relationship("Moneda")
     fecha = db.Column(db.DateTime, default=db.func.current_timestamp(), primary_key=True)
     valor = db.Column(db.Float, nullable=False) 
 
     @classmethod
-    def create(cls, id_moneda, fecha, valor):
-        precio_moneda = Precio_moneda(id_moneda = id_moneda, fecha = fecha, valor = valor)
+    def create(cls, id_moneda, valor):
+        precio_moneda = Precio_moneda(id_moneda = id_moneda, valor = valor)
         return precio_moneda.save()
 
     def save(self):
@@ -148,7 +147,7 @@ class Pais(db.Model):
     @classmethod
     def create(cls, nombre):
         pais = Pais(nombre = nombre)
-        return Pais.save()
+        return pais.save()
 
     def save(self):
         try:
@@ -183,12 +182,12 @@ class Moneda(db.Model):
     sigla = db.Column(db.String(10), nullable=False)
     nombre = db.Column(db.String(80), nullable=False) 
     precio_moneda = db.relationship('Precio_moneda',  cascade = "all,delete", backref = "parent", lazy = 'dynamic')
-    usuario_tiene_moneda = db.relationship('Usuario_tiene_moneda',  cascade = "all,delete", backref = "parent", lazy = 'dynamic')
+    usuario_tiene_moneda = db.relationship('Usuario_tiene_moneda',  cascade = "all,delete", lazy = 'dynamic')
 
     @classmethod
     def create(cls, sigla, nombre):
         moneda = Moneda(sigla=sigla, nombre=nombre)
-        return Moneda.save()
+        return moneda.save()
 
     def save(self):
         try:
