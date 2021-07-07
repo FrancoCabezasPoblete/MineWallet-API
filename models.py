@@ -16,12 +16,12 @@ class Usuario(db.Model):
     pais = db.Column(db.Integer, db.ForeignKey('pais.cod_pais'))
     paisPK = db.relationship("Pais")
     fecha = db.Column(db.DateTime(), nullable=False, default=db.func.current_timestamp())
-    admin = db.Column(db.bool,db.String(50), nullable=False) 
+    admin = db.Column(db.Boolean(), nullable=False) 
     usuario_tiene_moneda = db.relationship('Usuario_tiene_moneda', cascade = "all,delete", backref = "parent", lazy = 'dynamic')
     cuenta_bancaria = db.relationship('Cuenta_bancaria',  cascade = "all,delete", backref = "parent", lazy = 'dynamic')
     
     @classmethod
-    def create(cls,nombre,apellido = "",correo,contraseña,fecha,admin):
+    def create(cls,nombre,correo,contraseña,fecha,admin,apellido = ""):
         # Instanciamos un nuevo registro y lo guardamos en la bd
         usuario = Usuario(nombre = nombre, apellido = apellido, correo = correo, contraseña = contraseña, fecha = fecha, admin = admin)
         return usuario.save()
@@ -60,11 +60,11 @@ class Usuario(db.Model):
 
 class Usuario_tiene_moneda(db.Model):
     __tablename__ = 'usuario_tiene_moneda'
-    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key = True)
     usuario = db.relationship("Usuario")
-    id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'))
+    id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'), primary_key = True)
     moneda = db.relationship("Moneda")
-    balance = db.Column(db.Integer, nullable=False)
+    balance = db.Column(db.Integer(), nullable=False)
     
     @classmethod
     def create(cls, id_usuario, id_moneda, balance):
@@ -101,7 +101,7 @@ class Usuario_tiene_moneda(db.Model):
 
 class Precio_moneda(db.Model):
     __tablename__ = 'precio_moneda'
-    id_moneda = db.Column(db.Integer(), db.ForeingKey('moneda.id')) 
+    id_moneda = db.Column(db.Integer(), db.ForeignKey('moneda.id'), primary_key = True) 
     moneda = db.relationship("Moneda")
     fecha = db.Column(db.DateTime, default=db.func.current_timestamp(), primary_key=True)
     valor = db.Column(db.Float, nullable=False) 
@@ -222,7 +222,7 @@ class Moneda(db.Model):
 class Cuenta_bancaria(db.Model):
     __tablename__ = 'cuenta_bancaria'
     numero_cuenta = db.Column(db.Integer, primary_key=True)
-    id_usuario = db.Column(db.Integer, db.ForeingKey('usuario.id'))
+    id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'))
     balance = db.Column(db.Float, nullable=False)
 
     @classmethod
