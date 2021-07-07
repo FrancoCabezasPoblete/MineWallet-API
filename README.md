@@ -16,6 +16,6 @@ Equipo:
 
 - En este proyecto se agregara una API-REST al proyecto anterior (MineWallet): https://github.com/FrancoCabezasPoblete/MineWallet
 
--El código anterior funciona correctamente, por lo que no se le deberá hacer ningún tipo de modificación por lo que se usará de forma total e integra. 
+- El código anterior funciona correctamente, por lo que no se le deberá hacer ningún tipo de modificación por lo que se usará de forma total e integra. 
 
--Solo se entregará el correcto funcionamiento del código, por lo que no será necesaria una interfaz visual para que el código funcione. 
+- Solo se entregará el correcto funcionamiento del código, por lo que no será necesaria una interfaz visual para que el código funcione. 
