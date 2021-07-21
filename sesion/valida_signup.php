@@ -34,8 +34,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 			header( "refresh:5; url=/sesion/sign-up.html" ); 
 		} else {
 			session_start();
-			$sql2 = "INSERT INTO usuario (id,nombre, apellido, correo, contraseña, pais, fecha_registro, admin) VALUES($1,$2, $3, $4, $5, $6, $7, FALSE);";
-			$res = pg_query_params($dbconn, $sql2, array($id,$nombre,$apellido,$email,$pw_hashed,$pais,$fecha));
+			$sql2 = "INSERT INTO usuario (nombre, apellido, correo, contraseña, pais, fecha_registro, admin) VALUES($1,$2, $3, $4, $5, $6, FALSE);";
+			$res = pg_query_params($dbconn, $sql2, array($nombre,$apellido,$email,$pw_hashed,$pais,$fecha));
 			$_SESSION["usuario"] = TRUE; // Un usuario nunca se podra volver asi mismo admin
 			$_SESSION["id"] = $id;
 			$_SESSION["nombre"] = $nombre;

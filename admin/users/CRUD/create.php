@@ -2,7 +2,7 @@
 /* Este archivo debe manejar la lógica para crear un usuario como admin */
 if ($_SERVER["REQUEST_METHOD"]=="POST"){ 
     include $_SERVER['DOCUMENT_ROOT'].'/db_config.php';
-    $id = pg_num_rows(pg_query("SELECT id FROM usuario"))+1;
+    //$id = pg_num_rows(pg_query("SELECT id FROM usuario"))+1;
     $nombre = filter_var($_POST["name"], FILTER_SANITIZE_STRING);
     $apellido = filter_var($_POST["surname"], FILTER_SANITIZE_STRING);
     $correo = filter_var($_POST["email"], FILTER_SANITIZE_STRING);
@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"]=="POST"){
     $verificacion = pg_num_rows($verificacion_de_correo);
 
     if($verificacion == 0){
-        $base = "INSERT INTO usuario(id,nombre,apellido,correo,contraseña,pais,fecha_registro,admin) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)";
-        pg_query_params($dbconn,$base,array($id,$nombre,$apellido,$correo,$contrasena_hasheada,$pais,$fecha,$admin));
+        $base = "INSERT INTO usuario(nombre,apellido,correo,contraseña,pais,fecha_registro,admin) VALUES ($1,$2,$3,$4,$5,$6,$7)";
+        pg_query_params($dbconn,$base,array($nombre,$apellido,$correo,$contrasena_hasheada,$pais,$fecha,$admin));
         header("Location: ../all.html");
     }
     pg_close();
