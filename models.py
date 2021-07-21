@@ -57,6 +57,22 @@ class Usuario(db.Model):
         except:
             return False
 
+    # Consulta 1
+    def usuario_anno(anno):
+        try:
+            result = db.session.execute('SELECT nombre, apellido, correo FROM usuario WHERE EXTRACT(YEAR FROM fecha) = :anno', {'anno': anno})
+            return result
+        except:
+            return False
+
+    # Consulta 3
+    def usuario_pais(pais):
+        try:
+            result = db.session.execute('SELECT nombre, apellido, correo FROM usuario WHERE pais = :paiz', {'paiz': pais})
+            return result
+        except:
+            return False
+
 class Usuario_tiene_moneda(db.Model):
     __tablename__ = 'usuario_tiene_moneda'
     id_usuario = db.Column(db.Integer, db.ForeignKey('usuario.id'), primary_key = True)
@@ -98,6 +114,14 @@ class Usuario_tiene_moneda(db.Model):
         except:
             return False
 
+    # Consulta 5
+    def circulacion(id_moneda):
+        try:
+            result = db.session.execute('SELECT SUM(balance) FROM usuario_tiene_moneda WHERE id_moneda = :id_moneda',{'id_moneda':id_moneda})
+            return result
+        except:
+            return False
+
 class Precio_moneda(db.Model):
     __tablename__ = 'precio_moneda'
     id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'), primary_key = True) 
@@ -135,6 +159,14 @@ class Precio_moneda(db.Model):
             db.session.commit()
 
             return True
+        except:
+            return False
+
+    # Consulta 4
+    def max_hist(id_moneda):
+        try:
+            result = db.session.execute('SELECT valor FROM precio_moneda WHERE id_moneda = :id_moneda ORDER BY valor DESC LIMIT 1', {'id_moneda': id_moneda})
+            return result
         except:
             return False
 
@@ -255,5 +287,13 @@ class Cuenta_bancaria(db.Model):
             db.session.commit()
 
             return True
+        except:
+            return False
+
+    # Consulta 2
+    def bancaria_superior(max_balance):
+        try:
+            result = db.session.execute('SELECT numero_cuenta FROM cuenta_bancaria WHERE balance > :max', {'max': max_balance})
+            return result
         except:
             return False

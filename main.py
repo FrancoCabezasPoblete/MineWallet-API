@@ -23,7 +23,7 @@ enviroment = config['development']
 app = create_app(enviroment)
 
 #---------------------------#
-#	    USUARIO	            #
+#	      USUARIO	        #
 #---------------------------#
 
 # Se obtienen todos los usuarios
@@ -308,4 +308,48 @@ def delete_cuenta_bancaria(numero_cuenta):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#---------------------------#
+# CONSULTAS PERSONALIZADAS  #
+#---------------------------#
+
+# 1. Obtener todos los usuarios registrados durante el año X
+
+@app.route('/api/consultas/1/<anno>', methods=['GET'])
+def get_usuario_anno(anno):
+    usuarios = [dict(usuario) for usuario in Usuario.usuario_anno(anno=anno).fetchall()]
+    return jsonify({'usuarios': usuarios })
+
+
+# 2. Obtener todas las cuentas bancarias con un balance superior a X
+
+@app.route('/api/consultas/2/<max_balance>', methods=['GET'])
+def get_bancaria_superior(max_balance):
+    usuarios = [dict(cuenta_bancaria) for cuenta_bancaria in Cuenta_bancaria.bancaria_superior(max_balance=max_balance).fetchall()]
+    return jsonify({'usuarios': usuarios })
+
+
+# 3. Obtener todos los usuarios que pertenecen al pais X
+
+@app.route('/api/consultas/3/<pais>', methods=['GET'])
+def get_usuario_pais(pais):
+    usuarios = [dict(usuario) for usuario in Usuario.usuario_pais(pais=pais).fetchall()]
+    return jsonify({'usuarios': usuarios })
+
+
+# 4. Obtener el maximo valor historico de la moneda X
+
+@app.route('/api/consultas/4/<id_moneda>', methods=['GET'])
+def get_max_hist(id_moneda):
+    max_hists = [dict(max_hist) for max_hist in Precio_moneda.max_hist(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
+    return jsonify({'maximo historico': max_hists })
+
+
+# 5. Obtener la cantidad de moneda X en circulacion (Es decir, la suma de todas las cantidades de la moneda X que poseen todos los usuarios)
+
+@app.route('/api/consultas/5/<id_moneda>', methods=['GET'])
+def get_circulacion(id_moneda):
+    circulacion = [dict(cant) for cant in usuario_tiene_moneda.circulacion(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
+    return jsonify({'cantidad en circulacion': circulacion })
+
 

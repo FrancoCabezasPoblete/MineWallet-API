@@ -118,3 +118,19 @@ margin-left: .75rem;
     margin-top: 3rem !important;
   }
 }
+
+.shape {
+  text-align:center;
+  background:
+    linear-gradient(65deg , transparent 50%,rgba(3,78,136,0.7) 50%) left no-repeat, 
+    linear-gradient(0deg , rgba(3,78,136,0.7),rgba(3,78,136,0.7)) 30px 0 no-repeat;
+  
+  background-size:30px 100%, 100% 100%;
+  width:200px;
+  height:60px;
+  line-height:60px;
+  padding:0 20px;
+  color:white;
+  margin:20px auto;
+  position:relative;
+}
