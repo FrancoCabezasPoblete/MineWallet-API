@@ -38,29 +38,4 @@ function CallAPI($method, $url, $data){
     return $result;
 }
 
-if(isset($_GET['url'])){
-    $get_data = CallAPI('GET', 'http://localhost:5000/api/'.$_GET['url'], false);
-    $response = json_decode($get_data, true);
-    switch($_GET['url']){
-        case "usuario":
-            $data = $response["usuarios"];
-            break;
-        case "pais":
-            $data = $response["paises"];
-            break;
-        case "cuenta_bancaria":
-            $data = $response["cuentas_bancarias"];
-            break;
-        case "usuario_tiene_moneda":
-            $data = $response["usuarios_tiene_monedas"];
-            break;
-        case "moneda":
-            $data = $response["monedas"];
-            break;
-        case "precio_moneda":
-            $data = $response["precio_monedas"];
-            break;
-    }
-}
-
 ?>

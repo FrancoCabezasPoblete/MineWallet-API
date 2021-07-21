@@ -1,7 +1,10 @@
 <?php
 if(isset($_GET['url'])){
+        $get_data = CallAPI('GET', 'http://localhost:5000/api/'.$_GET['url'], false);
+        $response = json_decode($get_data, true);
         switch($_GET['url']){
                 case "usuario":
+                        $data = $response["usuarios"];
                         echo    '<th scope="col">ID</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Apellido</th>
@@ -28,6 +31,7 @@ if(isset($_GET['url'])){
                         }
                         break;
                 case "pais":
+                        $data = $response["paises"];
                         echo    '<th scope="col">Cod País</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Acciones</th>
@@ -47,6 +51,7 @@ if(isset($_GET['url'])){
                         }
                         break;
                 case "cuenta_bancaria":
+                        $data = $response["cuentas_bancarias"];
                         echo    '<th scope="col">Numero de Cuenta</th>
                                 <th scope="col">Id usuario</th>
                                 <th scope="col">Balance</th>
@@ -68,6 +73,7 @@ if(isset($_GET['url'])){
                         }
                         break;
                 case "usuario_tiene_moneda":
+                        $data = $response["usuarios_tiene_monedas"];
                         echo    '<th scope="col">ID Usuario</th>
                                 <th scope="col">ID Moneda</th>
                                 <th scope="col">Balance</th>
@@ -89,6 +95,7 @@ if(isset($_GET['url'])){
                         }
                         break;
                 case "moneda":
+                        $data = $response["monedas"];
                         echo    '<th scope="col">ID</th>
                                 <th scope="col">Sigla</th>
                                 <th scope="col">Nombre</th>
@@ -110,6 +117,7 @@ if(isset($_GET['url'])){
                         }
                         break;
                 case "precio_moneda":
+                        $data = $response["precio_monedas"];
                         echo    '<th scope="col">ID Moneda</th>
                                 <th scope="col">Valor</th>
                                 <th scope="col">Fecha</th>
@@ -130,7 +138,11 @@ if(isset($_GET['url'])){
                                         
                         }
                         break;
+                default:
+                        header("Location: /user/simulacro.html");
         }
+} else {
+        header("Location: /user/simulacro.html");
 }
 
 ?>
