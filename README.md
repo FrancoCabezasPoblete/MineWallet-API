@@ -19,3 +19,9 @@ Equipo:
 - El código anterior funciona correctamente, por lo que no se le deberá hacer ningún tipo de modificación por lo que se usará de forma total e integra. 
 
 - Solo se entregará el correcto funcionamiento del código, por lo que no será necesaria una interfaz visual para que el código funcione. 
+
+## Supiuesto:
+
+- Cuando se obtienen los usuarios registrados, solo se mostrara el nombre, apellido y correo como identificacion, ya dar mas informacion resultaria engorroso para la consulta.
+
+
