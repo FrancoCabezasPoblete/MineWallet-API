@@ -1,11 +1,13 @@
 <?php include '../include/navbar.html'; ?>
-<?php include '../cURL.php'; ?>
+<?php include '../cURL.php'; 
+$tabla = str_replace("_"," ",$_GET["url"]);
+?>
 <div class='container-fluid'>
     <div class="row p-3">
         <div class="col">
             <!-- Mostrar aquí los datos de cada usuario -->
             <div class="container shadow-lg rounded m-auto p-5 card" style="background-color: #f4f7fa;">
-                <h1 class="pb-3" style="color: #AABBCC;">CRUD de tabla <?php echo $_GET['url'];?></h1>
+                <h1 class="pb-3" style="color: #AABBCC;">CRUD de tabla <?php echo $tabla;?></h1>
                 <table class="table table-bordered" style="background-color: white;">
                     <thead>
                         <tr>

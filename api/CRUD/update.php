@@ -45,9 +45,10 @@ if(isset($_GET['url'])){
 
         case "precio_moneda":
             $data = array(
-                "valor" =>  filter_var($_POST['valor'], FILTER_SANITIZE_STRING)
+                "valor" =>  filter_var($_POST['valor'], FILTER_SANITIZE_STRING),
+                "fecha" => $_GET["id_2"]
             );
-            CallAPI('PUT', 'http://localhost:5000/api/precio_moneda/'.$_GET['id'].'/'.$_GET['id_2'], json_encode($data));
+            CallAPI('PUT', 'http://localhost:5000/api/precio_moneda/'.$_GET['id'], json_encode($data));
             break;
     }   
 }

@@ -140,22 +140,23 @@ def create_precio_moneda():
     return jsonify({'precio_moneda': precio_moneda.json() })
 
 # Se actualiza un precio_moneda
-@app.route('/api/precio_moneda/<id_moneda>/<fecha>', methods=['PUT'])
-def update_precio_moneda(id_moneda,fecha):
-    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=fecha).first()
-    if precio_moneda is None:
-        return jsonify({'message': 'El usuario no existe'}), 404
+@app.route('/api/precio_moneda/<id_moneda>', methods=['PUT'])
+def update_precio_moneda(id_moneda):
     json = request.get_json(force=True)
     if (json.get('valor') is None):
         return jsonify({'message': 'Solicitud Incorrecta'}), 400
+    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=json['fecha']).first()
+    if precio_moneda is None:
+        return jsonify({'message': 'El usuario no existe'}), 404
     precio_moneda.valor = json['valor']
     precio_moneda.update()
     return jsonify({'precio_moneda': precio_moneda.json() })
 
 # Se elimina un precio_moneda
-@app.route('/api/precio_moneda/<id_moneda>/<fecha>', methods=['DELETE'])
-def delete_precio_moneda(id_moneda,fecha):
-    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=fecha).first()
+@app.route('/api/precio_moneda/<id_moneda>', methods=['DELETE'])
+def delete_precio_moneda(id_moneda):
+    json = request.get_json(force=True)
+    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=json['fecha']).first()
     if precio_moneda is None:
         return jsonify({'message': 'El usuario no existe'}), 404
 
@@ -303,10 +304,6 @@ def delete_cuenta_bancaria(numero_cuenta):
 
     return jsonify({'cuenta_bancaria': cuenta_bancaria.json() })
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
 #---------------------------#
 # CONSULTAS PERSONALIZADAS  #
 #---------------------------#
@@ -351,3 +348,5 @@ def get_circulacion(id_moneda):
     return jsonify({'cantidad en circulacion': circulacion })
 
 
+if __name__ == '__main__':
+    app.run(debug=True)

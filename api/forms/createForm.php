@@ -35,7 +35,7 @@ if(isset($_GET['url'])){
         case "cuenta_bancaria":
             echo '<div class="form-group">
                     <label for="id_usuario">ID Usuario</label>
-                    <input type="text" class="form-control" placeholder="ID Usuario" id="id usuario" name="id usuario" required>
+                    <input type="text" class="form-control" placeholder="ID Usuario" id="id_usuario" name="id_usuario" required>
                 </div>
                 <div class="form-group">
                     <label for="balance">Balance</label>

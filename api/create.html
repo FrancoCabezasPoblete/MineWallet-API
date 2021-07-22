@@ -1,15 +1,17 @@
-<?php include '../include/navbar.html'; ?>
+<?php include '../include/navbar.html'; 
+$tabla = str_replace("_"," ",$_GET["url"]);
+?>
     <div class='container-fluid'>
         <div class="row p-3">
             <div class="col">
                 <div class="container rounded m-auto p-5" style="background-image: url(/img/rectangle.svg); background-repeat: no-repeat; background-size: 100% 100%; background-position: center;">
-                    <h1 class="pb-3" style="color: #AABBCC">Crear <?php echo $_GET['url'];?></h1>
+                    <h1 class="pb-3" style="color: #AABBCC">Crear <?php echo $tabla;?></h1>
                     <!-- Investigar como usar el metodo POST en cURL -->
                     <form action="/api/CRUD/create.php?url=<?php echo $_GET['url'];?>" method ="POST"> 
                         <?php include 'forms/createForm.php'; ?> 
                         <div class='d-flex justify-content-end'>
                             <a class="btn btn-4 mx-3" href="/api/all.html?url=<?php echo $_GET['url'];?>">Volver</a>
-                            <button type="submit" class="btn btn-3">Crear <?php echo $_GET['url'];?></button>
+                            <button type="submit" class="btn btn-3">Crear <?php echo $tabla;?></button>
                         </div>
                     </form>
                 </div>

@@ -130,9 +130,10 @@ if(isset($_GET['url'])){
                                         <td for="id">'.$row["id_moneda"].'</td>
                                         <td for="name">'.$row["valor"].'</td>
                                         <td for="name">'.$row["fecha"].'</td>
-                                        <td>
-                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id_moneda"].'&id_2='.$row['fecha'].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['id_moneda'].'&id_2='.$row['fecha'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>';
+                                $fecha = $row['fecha'];
+                                echo    '<a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id_moneda"].'&id_2='.$fecha.'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['id_moneda'].'&id_2='.$fecha.'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                         

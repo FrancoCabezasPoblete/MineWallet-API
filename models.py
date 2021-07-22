@@ -40,7 +40,7 @@ class Usuario(db.Model):
             'nombre': self.nombre,
             'apellido': self.apellido,
             'correo': self.correo,
-            'fecha': self.fecha,
+            'fecha': self.fecha.strftime('%Y-%m-%d %H:%M:%S.%f'),
             'contraseña': self.contraseña,
             'pais': self.pais
         }
@@ -146,7 +146,7 @@ class Precio_moneda(db.Model):
     def json(self):
         return {
             'id_moneda': self.id_moneda,
-            'fecha': self.fecha,
+            'fecha': self.fecha.strftime('%Y-%m-%d %H:%M:%S.%f'),
             'valor': self.valor
         }
 
