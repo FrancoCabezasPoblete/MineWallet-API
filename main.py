@@ -89,8 +89,8 @@ def create_usuario_tiene_moneda():
     if (json.get('balance') is None) or (json.get('id_usuario') is None) or (json.get('id_moneda') is None):
         return jsonify({'message': 'El formato está mal'}), 400
 
-    usuario_tiene_moneda = Usuario_tiene_moneda.create(json['id_usuario'],json['id_moneda'],json['balance'])
-
+    usuario_tiene_moneda = Usuario_tiene_moneda.create(json['id_usuario'],json['id_moneda'],json['balance']) # puede ser por la fk combinada de id moneda, usuario. 
+    
     return jsonify({'usuario_tiene_moneda': usuario_tiene_moneda.json() })
 
 # Se actualiza un usuario_tiene_moneda
@@ -100,11 +100,9 @@ def update_usuario_tiene_moneda(id_usuario, id_moneda):
     if usuario_tiene_moneda is None:
         return jsonify({'message': 'El usuario no existe'}), 404
     json = request.get_json(force=True)
-    if (json.get('balance') is None) or (json.get('id_usuario') is None) or (json.get('id_moneda') is None):
+    if (json.get('balance') is None):
         return jsonify({'message': 'Solicitud Incorrecta'}), 400
     usuario_tiene_moneda.balance = json['balance']
-    usuario_tiene_moneda.id_usuario = json['id_usuario']
-    usuario_tiene_moneda.id_moneda = json['id_moneda']
     usuario_tiene_moneda.update()
     return jsonify({'usuario_tiene_moneda': usuario_tiene_moneda.json() })
 
@@ -142,9 +140,9 @@ def create_precio_moneda():
     return jsonify({'precio_moneda': precio_moneda.json() })
 
 # Se actualiza un precio_moneda
-@app.route('/api/precio_moneda/<id_moneda>', methods=['PUT'])
-def update_precio_moneda(id_moneda):
-    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda).first()
+@app.route('/api/precio_moneda/<id_moneda>/<fecha>', methods=['PUT'])
+def update_precio_moneda(id_moneda,fecha):
+    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=fecha).first()
     if precio_moneda is None:
         return jsonify({'message': 'El usuario no existe'}), 404
     json = request.get_json(force=True)
@@ -155,15 +153,15 @@ def update_precio_moneda(id_moneda):
     return jsonify({'precio_moneda': precio_moneda.json() })
 
 # Se elimina un precio_moneda
-@app.route('/api/precio_moneda/<id_moneda>', methods=['DELETE'])
-def delete_precio_moneda(id_moneda):
-    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda).first()
+@app.route('/api/precio_moneda/<id_moneda>/<fecha>', methods=['DELETE'])
+def delete_precio_moneda(id_moneda,fecha):
+    precio_moneda = Precio_moneda.query.filter_by(id_moneda=id_moneda, fecha=fecha).first()
     if precio_moneda is None:
         return jsonify({'message': 'El usuario no existe'}), 404
 
     precio_moneda.delete()
 
-    return jsonify({'precio_moenda': precio_moneda.json() })
+    return jsonify({'precio_moneda': precio_moneda.json() })
 	
 #---------------------------#
 #   	    PAIS	        #
@@ -295,7 +293,7 @@ def update_cuenta_bancaria(numero_cuenta):
     return jsonify({'cuenta_bancaria':cuenta_bancaria.json() })
 
 # Se elimina una cuenta_bancaria
-@app.route('/api/cuenta_bancaria/<numero_de_cuenta>', methods=['DELETE'])
+@app.route('/api/cuenta_bancaria/<numero_cuenta>', methods=['DELETE'])
 def delete_cuenta_bancaria(numero_cuenta):
     cuenta_bancaria = Cuenta_bancaria.query.filter_by(numero_cuenta=numero_cuenta).first()
     if cuenta_bancaria is None:
@@ -349,7 +347,7 @@ def get_max_hist(id_moneda):
 
 @app.route('/api/consultas/5/<id_moneda>', methods=['GET'])
 def get_circulacion(id_moneda):
-    circulacion = [dict(cant) for cant in usuario_tiene_moneda.circulacion(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
+    circulacion = [dict(cant) for cant in Usuario_tiene_moneda.circulacion(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
     return jsonify({'cantidad en circulacion': circulacion })
 
 

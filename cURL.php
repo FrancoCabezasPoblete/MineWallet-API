@@ -13,6 +13,11 @@ function CallAPI($method, $url, $data){
             if ($data)
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
             break;
+        case "DELETE":
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+            if ($data)
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $data);			 					
+            break;
         default:
             if ($data)
                 $url = sprintf("%s?%s", $url, http_build_query($data));

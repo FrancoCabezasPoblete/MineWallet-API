@@ -1,52 +1,13 @@
-<?php include '../../include/navbar.html'; ?>
+<?php include '../include/navbar.html'; ?>
     <div class='container-fluid'>
         <div class="row p-3">
             <div class="col">
                 <div class="container rounded m-auto p-5" style="background-image: url(/img/rectangle.svg); background-repeat: no-repeat; background-size: 100% 100%; background-position: center;">
-                    <h1 class="pb-3" style="color: #AABBCC">Crear Usuario</h1>
-                    <!-- El formulario debe aparecer llenado con los valores actuales de los parámetros -->
-                    <?php echo '<form action="/admin/users/CRUD/update.php?id='.$_GET["id"].'" method="POST">' ?>
-                        <div class="form-group">
-                            <label for="name">Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="surname">Apellido</label>
-                            <input type="text" class="form-control" placeholder="Apellido" id="surname" name="surname">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Correo Electrónico</label>
-                            <input type="email" class="form-control" placeholder="correo@electronico.com" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Contraseña</label>
-                            <input type="password" class="form-control" placeholder="Contraseña" id="pwd" name="pwd" required>
-                        </div>
-                        <!-- NOTA: Los valores están en duro para esta tarea. -->
-                        <div class="form-group">
-                            <label for="country">País</label>
-                            <select class="form-control" id="country" name="country">
-                                <option value="1">Angola</option>
-                                <option value="2">Sudáfrica</option>
-                                <option value="3">Canadá</option>
-                                <option value="4">Estados Unidos</option>
-                                <option value="5">Chile</option>
-                                <option value="6">Australia</option>
-                                <option value="7">India</option>
-                                <option value="8">Corea del Sur</option>
-                                <option value="9">Rusia</option>
-                                <option value="10">Suiza</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="admin">Administrador</label>
-                            <select class="form-control" id="admin" name="admin">
-                                <option value="0">No</option>
-                                <option value="1">Si</option>
-                            </select>
-                        </div>
+                    <h1 class="pb-3" style="color: #AABBCC">Modificar <?php echo $_GET['url'];?></h1>
+                        <!-- El formulario debe aparecer llenado con los valores actuales de los parámetros -->
+                        <?php include 'forms/updateForm.php'; ?>
                         <div class='d-flex justify-content-end'>
-                            <a class="btn btn-4 mx-3" href="/admin/users/all.html">Volver</a>
+                            <a class="btn btn-4 mx-3" href="/api/all.html?url=<?php echo $_GET['url'];?>">Volver</a>
                             <button type="submit" class="btn btn-1">Guardar cambios</button>
                         </div>
                     </form>

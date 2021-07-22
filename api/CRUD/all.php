@@ -23,9 +23,9 @@ if(isset($_GET['url'])){
                                         <td for="mail">'.$row["correo"].'</td>
                                         <td for="country">'.$row['pais'].'</td>
                                         <td for="date">'.$row['fecha'].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['id'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';      
                         }
@@ -42,9 +42,9 @@ if(isset($_GET['url'])){
                                 echo   '<tr>
                                         <td for="id">'.$row["cod_pais"].'</td>
                                         <td for="name">'.$row["nombre"].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["cod_pais"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['cod_pais'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                         
@@ -64,9 +64,9 @@ if(isset($_GET['url'])){
                                         <td for="id">'.$row["numero_cuenta"].'</td>
                                         <td for="name">'.$row["id_usuario"].'</td>
                                         <td for="name">'.$row["balance"].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["numero_cuenta"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['numero_cuenta'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                                 
@@ -86,9 +86,9 @@ if(isset($_GET['url'])){
                                         <td for="id">'.$row["id_usuario"].'</td>
                                         <td for="name">'.$row["id_moneda"].'</td>
                                         <td for="mail">'.$row["balance"].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id_usuario"].'&id_2='.$row["id_moneda"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row["id_usuario"].'&id_2='.$row["id_moneda"].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                         
@@ -108,9 +108,9 @@ if(isset($_GET['url'])){
                                         <td for="id">'.$row["id"].'</td>
                                         <td for="last name">'.$row["sigla"].'</td>
                                         <td for="name">'.$row["nombre"].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['id'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                         
@@ -126,13 +126,13 @@ if(isset($_GET['url'])){
                                 </thead>
                                 <tbody>';
                         foreach($data as $row) {
-                                echo   '<tr>
+                                echo   '<tr></tr>
                                         <td for="id">'.$row["id_moneda"].'</td>
                                         <td for="name">'.$row["valor"].'</td>
                                         <td for="name">'.$row["fecha"].'</td>
-                                        <td><a href="/admin/users/read.html?id='.$row["id"].'" class="btn btn-1">Ver <i class="fas fa-search"></i></a>
-                                        <a href="/api/update.html?id='.$row["id"].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
-                                        <a href="/api/CRUD/delete.php?id='.$row["id"].'" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
+                                        <td>
+                                        <a href="/api/update.html?url='.$_GET['url'].'&id='.$row["id_moneda"].'&id_2='.$row['fecha'].'" class="btn btn-2">Editar <i class="fas fa-edit"></i></a>
+                                        <a href="/api/CRUD/delete.php?url='.$_GET['url'].'&id='.$row['id_moneda'].'&id_2='.$row['fecha'].'&method=delete" class="btn btn-3">Borrar <i class="fas fa-trash-alt"></i></a>
                                         </td>
                                         </tr>';
                                         
