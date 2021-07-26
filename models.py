@@ -122,6 +122,22 @@ class Usuario_tiene_moneda(db.Model):
         except:
             return False
 
+    # Consulta 6
+    def top_3():
+        try:
+            result = db.session.execute('SELECT id_moneda FROM usuario_tiene_moneda GROUP BY id_moneda ORDER BY COUNT(id_usuario) DESC LIMIT 3')
+            return result
+        except:
+            return False
+
+    # Consulta 8
+    def abundante(id_usuario):
+        try:
+            result = db.session.execute('SELECT id_moneda FROM usuario_tiene_moneda WHERE id_usuario = :id_usuario ORDER BY balance DESC LIMIT 1', {'id_usuario': id_usuario})
+            return result
+        except:
+            return False
+
 class Precio_moneda(db.Model):
     __tablename__ = 'precio_moneda'
     id_moneda = db.Column(db.Integer, db.ForeignKey('moneda.id'), primary_key = True) 
@@ -169,6 +185,14 @@ class Precio_moneda(db.Model):
             return result
         except:
             return False
+
+    # Consulta 7
+    def cambio_mes(mes):
+        try:
+            result = db.session.execute('SELECT id_moneda FROM precio_moneda WHERE EXTRACT(MONTH FROM fecha) = :mes  GROUP BY id_moneda ORDER BY COUNT(*) DESC LIMIT 1', {'mes': mes})
+            return result
+        except:
+            return False       
 
 class Pais(db.Model):
     __tablename__ = 'pais'

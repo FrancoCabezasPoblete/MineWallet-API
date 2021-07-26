@@ -315,14 +315,12 @@ def get_usuario_anno(anno):
     usuarios = [dict(usuario) for usuario in Usuario.usuario_anno(anno=anno).fetchall()]
     return jsonify({'usuarios': usuarios })
 
-
 # 2. Obtener todas las cuentas bancarias con un balance superior a X
 
 @app.route('/api/consultas/2/<max_balance>', methods=['GET'])
 def get_bancaria_superior(max_balance):
     usuarios = [dict(cuenta_bancaria) for cuenta_bancaria in Cuenta_bancaria.bancaria_superior(max_balance=max_balance).fetchall()]
     return jsonify({'usuarios': usuarios })
-
 
 # 3. Obtener todos los usuarios que pertenecen al pais X
 
@@ -331,14 +329,12 @@ def get_usuario_pais(pais):
     usuarios = [dict(usuario) for usuario in Usuario.usuario_pais(pais=pais).fetchall()]
     return jsonify({'usuarios': usuarios })
 
-
 # 4. Obtener el maximo valor historico de la moneda X
 
 @app.route('/api/consultas/4/<id_moneda>', methods=['GET'])
 def get_max_hist(id_moneda):
     max_hists = [dict(max_hist) for max_hist in Precio_moneda.max_hist(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
     return jsonify({'maximo historico': max_hists })
-
 
 # 5. Obtener la cantidad de moneda X en circulacion (Es decir, la suma de todas las cantidades de la moneda X que poseen todos los usuarios)
 
@@ -347,6 +343,26 @@ def get_circulacion(id_moneda):
     circulacion = [dict(cant) for cant in Usuario_tiene_moneda.circulacion(id_moneda=id_moneda).fetchall()] # Posible optimizacion: es un unico resultado
     return jsonify({'cantidad en circulacion': circulacion })
 
+# 6. Obtener el TOP 3 de monedas más populares, es decir, las que son poseídas por la mayor cantidad de usuarios diferentes
+
+@app.route('/api/consultas/6', methods=['GET'])
+def get_top_3():
+    top = [dict(moneda) for moneda in Usuario_tiene_moneda.top_3().fetchall()]
+    return jsonify({'top monedas populares': top })
+
+# 7. Obtener la moneda que más cambió su valor durante el mes X
+
+@app.route('/api/consultas/7/<mes>', methods=['GET'])
+def get_cambio_mes(mes):
+    top_cambio = [dict(moneda) for moneda in Precio_moneda.cambio_mes(mes=mes).fetchall()] # Posible optimizacion: es un unico resultado
+    return jsonify({'cantidad en circulacion': top_cambio })
+
+# 8. Obtener la criptomoneda más abundante del usuario X
+
+@app.route('/api/consultas/8/<id_usuario>', methods=['GET'])
+def get_abundante(id_usuario):
+    top_abundante = [dict(moneda) for moneda in Usuario_tiene_moneda.abundante(id_usuario=id_usuario).fetchall()] # Posible optimizacion: es un unico resultado
+    return jsonify({'cantidad en circulacion': top_abundante })
 
 if __name__ == '__main__':
     app.run(debug=True)
