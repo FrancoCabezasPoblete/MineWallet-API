@@ -319,8 +319,8 @@ def get_usuario_anno(anno):
 
 @app.route('/api/consultas/2/<max_balance>', methods=['GET'])
 def get_bancaria_superior(max_balance):
-    usuarios = [dict(cuenta_bancaria) for cuenta_bancaria in Cuenta_bancaria.bancaria_superior(max_balance=max_balance).fetchall()]
-    return jsonify({'usuarios': usuarios })
+    cuentas = [dict(cuenta_bancaria) for cuenta_bancaria in Cuenta_bancaria.bancaria_superior(max_balance=max_balance).fetchall()]
+    return jsonify({'cuentas bancarias': cuentas })
 
 # 3. Obtener todos los usuarios que pertenecen al pais X
 
@@ -348,7 +348,7 @@ def get_circulacion(id_moneda):
 @app.route('/api/consultas/6', methods=['GET'])
 def get_top_3():
     top = [dict(moneda) for moneda in Usuario_tiene_moneda.top_3().fetchall()]
-    return jsonify({'top monedas populares': top })
+    return jsonify({'top monedas': top })
 
 # 7. Obtener la moneda que más cambió su valor durante el mes X
 
@@ -362,7 +362,7 @@ def get_cambio_mes(mes):
 @app.route('/api/consultas/8/<id_usuario>', methods=['GET'])
 def get_abundante(id_usuario):
     top_abundante = [dict(moneda) for moneda in Usuario_tiene_moneda.abundante(id_usuario=id_usuario).fetchall()] # Posible optimizacion: es un unico resultado
-    return jsonify({'cantidad en circulacion': top_abundante })
+    return jsonify({'top moneda': top_abundante })
 
 if __name__ == '__main__':
     app.run(debug=True)
