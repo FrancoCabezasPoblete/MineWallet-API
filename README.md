@@ -18,6 +18,6 @@ Equipo:
 
 - El código anterior funciona correctamente, por lo que no se le deberá hacer ningún tipo de modificación por lo que se usará de forma total e integra. 
 
-- Solo se entregará el correcto funcionamiento del código, por lo que no será necesaria una interfaz visual para que el código funcione. 
-
 ## Supuesto:
+
+- Si en la consulta 6 hay mas de 3 monedas que encajen en el top 3, entonces solo se mostraran las 3 primeras que aparezcan.
